@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-roboto-mono);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Делаем переменные темы анимируемыми */
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0a0a0a;
+}
+@property --fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fafafa;
+}
+@property --muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a3a3a3;
+}
+@property --border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #262626;
+}
+
+:root {
+  --font-roboto-mono: "Roboto Mono", ui-monospace, monospace;
+  --bg: #0a0a0a;
+  --fg: #fafafa;
+  --muted: #a3a3a3;
+  --border: #262626;
+  transition: --bg 0.5s ease, --fg 0.5s ease, --muted 0.5s ease, --border 0.5s ease;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #fafafa;
+  --muted: #a3a3a3;
+  --border: #262626;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --muted: #525252;
+  --border: #e5e5e5;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-roboto-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sharp only; rounded only for images */
+img,
+[data-rounded] {
+  border-radius: 2px;
+}
+
+/* Subtle focus for a11y */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Projects strip */
+.projects-strip {
+  overflow: hidden;
+}
+
+.projects-track {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  will-change: transform;
 }
