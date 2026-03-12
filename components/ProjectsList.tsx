@@ -137,8 +137,8 @@ export function ProjectsList() {
       </div>
 
       {selected && (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4">
-          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-6">
+        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4" onClick={() => setSelected(null)}>
+          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-6" onClick={e => e.stopPropagation()}>
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-xs uppercase tracking-wider text-[var(--muted)]">{selected.tag}</p>
@@ -156,8 +156,7 @@ export function ProjectsList() {
             <p className="mb-6 text-sm text-[var(--muted)]">{selected.desc}</p>
             <div className="flex justify-between gap-4 text-xs text-[var(--muted)]">
               <p className="max-w-xs">
-                Кому это нужно: компаниям, которые хотят автоматизировать процессы и убрать ручную
-                рутину. Опишите свою задачу — мы подскажем, подходит ли вам такой подход.
+                {t.projects.modalDesc}
               </p>
               <button
                 type="button"
@@ -167,7 +166,7 @@ export function ProjectsList() {
                 }}
                 className="self-end border border-[var(--fg)] bg-[var(--fg)] px-4 py-2 text-[var(--bg)]"
               >
-                Связаться с нами
+                {t.nav.contact}
               </button>
             </div>
           </div>

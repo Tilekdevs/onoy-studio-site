@@ -6,7 +6,7 @@ export function Specialists() {
   const { t } = useApp();
 
   return (
-    <section id="faq" className="border-t border-[var(--border)] px-4 py-20 sm:px-6 lg:px-8">
+    <section className="border-t border-[var(--border)] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-12 text-2xl font-medium tracking-tight text-[var(--fg)] sm:text-3xl">
           {t.specialists.title}
