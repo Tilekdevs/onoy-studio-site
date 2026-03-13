@@ -10,12 +10,12 @@ export function Pricing() {
 
   return (
     <>
-      <section id="pricing" className="border-t border-[var(--border)] px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-6 text-xl font-medium tracking-tight text-[var(--fg)] sm:mb-8 sm:text-2xl md:text-3xl">
+      <section id="pricing" className="border-t border-[var(--border)] px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl text-center">
+          <h2 className="mb-8 text-2xl font-medium tracking-tight text-[var(--fg)] sm:text-3xl">
             {t.nav.pricing}
           </h2>
-          <p className="max-w-xl text-sm text-[var(--muted)] sm:text-base">{t.pricing.intro}</p>
+          <p className="mx-auto max-w-xl text-[var(--muted)]">{t.pricing.intro}</p>
           <button
             type="button"
             onClick={() => setOpen(true)}

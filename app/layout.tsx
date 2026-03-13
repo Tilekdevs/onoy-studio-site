@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto_Mono } from "next/font/google";
 import { Providers } from "@/lib/providers";
+import { CursorDots } from "@/components/CursorDots";
 import "./globals.css";
 
 const robotoMono = Roboto_Mono({
@@ -16,7 +17,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Onoy — Development services",
+  title: "Onoy Applications",
   description:
     "CRM, Telegram bots, websites, APIs, server deployment. Full-cycle development.",
 };
@@ -27,7 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${robotoMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="relative">
+            <CursorDots />
+            {children}
+          </div>
+          <div className="site-scan-line" aria-hidden />
+        </Providers>
       </body>
     </html>
   );

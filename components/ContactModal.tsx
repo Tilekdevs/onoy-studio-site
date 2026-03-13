@@ -59,8 +59,8 @@ export function ContactModal({ open, onClose }: Props) {
   if (!open || !mounted) return null;
 
   const modal = (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4">
-      <div className="w-full max-w-md border border-[var(--border)] bg-[var(--bg)] p-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
+      <div className="w-full max-w-md max-h-[90dvh] overflow-y-auto border border-[var(--border)] bg-[var(--bg)] p-6" onClick={e => e.stopPropagation()}>
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-medium text-[var(--fg)]">{t.contact.title}</h2>
           <button

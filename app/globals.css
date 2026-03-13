@@ -99,6 +99,69 @@ button:focus-visible {
   }
 }
 
+/* === Hero geometric shapes === */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(1.8deg); }
+  66%       { transform: translateY(-5px) rotate(-1.2deg); }
+}
+@keyframes heroFloatAlt {
+  0%, 100% { transform: translateY(0px); }
+  40%       { transform: translateY(-16px); }
+  75%       { transform: translateY(-6px); }
+}
+@keyframes heroFloatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-10px) rotate(-2deg); }
+}
+@keyframes heroBreath {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50%       { opacity: 0.14; transform: scale(1.02); }
+}
+@keyframes heroScanLine {
+  0%   { top: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes heroDotPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%       { transform: scale(1.6); opacity: 1; }
+}
+
+.hero-shape-main   { animation: heroFloat       9s ease-in-out infinite; }
+.hero-shape-left   { animation: heroFloatAlt    6s ease-in-out 0.8s infinite; }
+.hero-shape-right  { animation: heroFloatSlow   7.5s ease-in-out 2s infinite; }
+.hero-shape-dot    { animation: heroDotPulse    2.5s ease-in-out infinite; }
+.hero-shape-accent { animation: heroFloatAlt    5s ease-in-out 3s infinite; }
+
+/* === Icon animation keyframes === */
+@keyframes iconScanFade {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.1; }
+}
+@keyframes iconTypingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-3px); }
+}
+@keyframes iconDotPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+@keyframes iconSlashBob {
+  0%, 100% { transform: rotate(0deg); }
+  40%      { transform: rotate(10deg); }
+  70%      { transform: rotate(-6deg); }
+}
+@keyframes iconCursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes iconHomePulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%      { transform: scale(2.2); opacity: 0.35; }
+}
+
 /* Projects strip */
 .projects-strip {
   overflow: hidden;

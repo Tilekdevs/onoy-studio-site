@@ -1,17 +1,59 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useApp } from "@/lib/providers";
 
 const PROJECTS = [
-  { id: "1", title: "CRM for logistics", tag: "CRM", desc: "Internal CRM for freight company" },
-  { id: "2", title: "Telegram support bot", tag: "Bot", desc: "Support and FAQ automation" },
-  { id: "3", title: "E-commerce platform", tag: "Web", desc: "Online store with payments" },
-  { id: "4", title: "API gateway", tag: "Backend", desc: "Unified API for mobile and web" },
-  { id: "5", title: "Kubernetes setup", tag: "DevOps", desc: "CI/CD and cluster management" },
-  { id: "6", title: "Mobile app", tag: "Mobile", desc: "Cross-platform React Native app" },
+  {
+    id: "1",
+    title: "CRM for logistics",
+    tag: "CRM",
+    desc: "Internal CRM for freight company",
+    image: "https://www.customerization.ca/wp-content/uploads/2024/06/crm-in-logistics-1024x727.webp",
+  },
+  {
+    id: "2",
+    title: "Telegram support bot",
+    tag: "Bot",
+    desc: "Support and FAQ automation",
+    image: "https://neiros.ru/images/eac4255f7c37d848ac5cda7737116ab3.png",
+  },
+  {
+    id: "3",
+    title: "E-commerce platform",
+    tag: "Web",
+    desc: "Online store with payments",
+    image: "https://www.spacestem.com/images/platform-ecommerce-uk.webp",
+  },
+  {
+    id: "4",
+    title: "API gateway",
+    tag: "Backend",
+    desc: "Unified API for mobile and web",
+    image: "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a933717-1d59-46a6-ba51-76e24ae048fc_1280x1502.gif",
+  },
+  {
+    id: "5",
+    title: "Kubernetes setup",
+    tag: "DevOps",
+    desc: "CI/CD and cluster management",
+    image: "https://shalb.com/wp-content/uploads/2019/11/Devops1.jpeg",
+  },
+  {
+    id: "6",
+    title: "Mobile app",
+    tag: "Mobile",
+    desc: "Cross-platform React Native app",
+    image: "https://shalb.com/wp-content/uploads/2019/11/Devops1.jpeg",
+  },
 ];
 
 export default function ProjectsPage() {
+  const { t } = useApp();
+
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)]">
       <Header />
@@ -21,10 +63,10 @@ export default function ProjectsPage() {
             href="/"
             className="mb-8 inline-block text-sm text-[var(--muted)] hover:text-[var(--fg)]"
           >
-            ← Back
+            {t.projects.back}
           </Link>
           <h1 className="mb-12 text-3xl font-medium tracking-tight sm:text-4xl">
-            All projects
+            {t.projects.allProjects}
           </h1>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PROJECTS.map((p) => (
@@ -32,10 +74,15 @@ export default function ProjectsPage() {
                 key={p.id}
                 className="flex flex-col border border-[var(--border)] bg-[var(--fg)]/5 transition-colors hover:border-[var(--fg)]"
               >
-                <div
-                  className="aspect-[4/3] w-full border-b border-[var(--border)] bg-[var(--fg)]/10"
-                  data-rounded
-                />
+                <div className="relative aspect-[4/3] w-full border-b border-[var(--border)]">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="flex flex-col gap-2 p-4">
                   <span className="text-xs uppercase tracking-wider text-[var(--muted)]">
                     {p.tag}

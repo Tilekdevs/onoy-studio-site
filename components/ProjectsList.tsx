@@ -137,9 +137,9 @@ export function ProjectsList() {
       </div>
 
       {selected && (
-        <div className="fixed inset-0 z-[90] flex items-end justify-center bg-black/70 p-4 sm:items-center">
-          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-4 sm:p-6">
-            <div className="mb-4 flex items-center justify-between sm:mb-5">
+        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4" onClick={() => setSelected(null)}>
+          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-6" onClick={e => e.stopPropagation()}>
+            <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-xs uppercase tracking-wider text-[var(--muted)]">{selected.tag}</p>
                 <h2 className="mt-1 text-base font-medium text-[var(--fg)] sm:text-lg">{selected.title}</h2>
@@ -153,11 +153,10 @@ export function ProjectsList() {
                 ✕
               </button>
             </div>
-            <p className="mb-4 text-sm text-[var(--muted)] sm:mb-6">{selected.desc}</p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <p className="text-xs text-[var(--muted)] sm:max-w-xs">
-                Кому это нужно: компаниям, которые хотят автоматизировать процессы и убрать ручную
-                рутину. Опишите свою задачу — мы подскажем, подходит ли вам такой подход.
+            <p className="mb-6 text-sm text-[var(--muted)]">{selected.desc}</p>
+            <div className="flex justify-between gap-4 text-xs text-[var(--muted)]">
+              <p className="max-w-xs">
+                {t.projects.modalDesc}
               </p>
               <button
                 type="button"
@@ -167,7 +166,7 @@ export function ProjectsList() {
                 }}
                 className="w-full border border-[var(--fg)] bg-[var(--fg)] px-4 py-3 text-sm text-[var(--bg)] sm:w-auto sm:py-2"
               >
-                Связаться с нами
+                {t.nav.contact}
               </button>
             </div>
           </div>
