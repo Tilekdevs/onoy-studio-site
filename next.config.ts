@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "substackcdn.com" },
       { protocol: "https", hostname: "substack-post-media.s3.amazonaws.com" },
       { protocol: "https", hostname: "shalb.com" },
+      { protocol: "https", hostname: "itc.com.sa" },
+      { protocol: "https", hostname: "document360.com" },
+      { protocol: "https", hostname: "gracethemes.com" },
+      { protocol: "https", hostname: "miro.medium.com" },
     ],
   },
 };

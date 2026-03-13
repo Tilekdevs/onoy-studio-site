@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useApp } from "@/lib/providers";
+import { ContactModal } from "@/components/ContactModal";
 
 const PROJECTS = [
   {
@@ -47,12 +49,45 @@ const PROJECTS = [
     title: "Mobile app",
     tag: "Mobile",
     desc: "Cross-platform React Native app",
-    image: "https://shalb.com/wp-content/uploads/2019/11/Devops1.jpeg",
+    image: "https://itc.com.sa/tech-services/mobile-dev.jpg",
+  },
+  {
+    id: "7",
+    title: "Landing for SaaS product",
+    tag: "Landing",
+    desc: "High-conversion marketing website for B2B SaaS.",
+    image:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    id: "8",
+    title: "Admin dashboard",
+    tag: "Dashboard",
+    desc: "Analytics and management panel for internal operations.",
+    image:
+      "https://gracethemes.com/wp-content/uploads/2016/09/WordPress-Admin-Dashboard.png",
+  },
+  {
+    id: "9",
+    title: "Fintech API integrations",
+    tag: "Fintech",
+    desc: "Integration with payment gateways and banking APIs.",
+    image:
+      "https://document360.com/wp-content/uploads/2023/02/Fintech-API.png",
+  },
+  {
+    id: "10",
+    title: "Analytics microservices",
+    tag: "Microservices",
+    desc: "Event-based microservice architecture for real-time metrics.",
+    image:
+      "https://miro.medium.com/v2/resize:fit:1400/1*ACehqvfHKn9HKvSON8ivCg.png",
   },
 ];
 
 export default function ProjectsPage() {
   const { t } = useApp();
+  const [contactOpen, setContactOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)]">
@@ -70,9 +105,11 @@ export default function ProjectsPage() {
           </h1>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PROJECTS.map((p) => (
-              <article
+              <button
                 key={p.id}
-                className="flex flex-col border border-[var(--border)] bg-[var(--fg)]/5 transition-colors hover:border-[var(--fg)]"
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className="flex flex-col border border-[var(--border)] bg-[var(--fg)]/5 text-left transition-colors hover:border-[var(--fg)]"
               >
                 <div className="relative aspect-[4/3] w-full border-b border-[var(--border)]">
                   <Image
@@ -90,12 +127,13 @@ export default function ProjectsPage() {
                   <h2 className="text-lg font-medium text-[var(--fg)]">{p.title}</h2>
                   <p className="text-sm text-[var(--muted)]">{p.desc}</p>
                 </div>
-              </article>
+              </button>
             ))}
           </div>
         </div>
       </main>
       <Footer />
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </div>
   );
 }
