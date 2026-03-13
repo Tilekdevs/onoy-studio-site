@@ -93,35 +93,35 @@ export function ProjectsList() {
   };
 
   return (
-    <section id="projects" className="border-t border-[var(--border)] px-4 py-20 sm:px-6 lg:px-8">
+    <section id="projects" className="border-t border-[var(--border)] px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-2xl font-medium tracking-tight text-[var(--fg)] sm:text-3xl">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3 sm:mb-10 sm:gap-4">
+          <h2 className="text-xl font-medium tracking-tight text-[var(--fg)] sm:text-2xl md:text-3xl">
             {t.projects.title}
           </h2>
           <Link
             href="/projects"
-            className="inline-flex h-10 items-center border border-[var(--border)] px-4 text-sm text-[var(--fg)] transition-colors hover:border-[var(--fg)] hover:bg-[var(--fg)]/5"
+            className="inline-flex h-9 items-center border border-[var(--border)] px-3 text-xs text-[var(--fg)] transition-colors hover:border-[var(--fg)] hover:bg-[var(--fg)]/5 sm:h-10 sm:px-4 sm:text-sm"
           >
             {t.projects.allProjects}
           </Link>
         </div>
 
-        <div className="projects-strip">
-          <div ref={trackRef} className="projects-track">
+        <div className="projects-strip -mx-4 sm:mx-0">
+          <div ref={trackRef} className="projects-track pl-4 sm:pl-0">
             {[...MOCK_PROJECTS, ...MOCK_PROJECTS].map((p, i) => (
               <button
                 key={`${p.id}-${i}`}
                 type="button"
                 onClick={() => handleOpen(p)}
-                className="flex min-w-[280px] max-w-[280px] shrink-0 flex-col border border-[var(--border)] bg-[var(--fg)]/5 text-left transition-colors hover:border-[var(--fg)]"
+                className="flex min-w-[260px] max-w-[260px] shrink-0 flex-col border border-[var(--border)] bg-[var(--fg)]/5 text-left transition-colors hover:border-[var(--fg)] sm:min-w-[280px] sm:max-w-[280px]"
               >
                 <div className="relative aspect-[4/3] w-full border-b border-[var(--border)]" data-rounded>
                   <Image
                     src={p.image}
                     alt={p.title}
                     fill
-                    sizes="(max-width: 768px) 280px, 320px"
+                    sizes="(max-width: 640px) 260px, 280px"
                     className="object-cover"
                   />
                 </div>
@@ -137,25 +137,25 @@ export function ProjectsList() {
       </div>
 
       {selected && (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4">
-          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-6">
-            <div className="mb-5 flex items-center justify-between">
+        <div className="fixed inset-0 z-[90] flex items-end justify-center bg-black/70 p-4 sm:items-center">
+          <div className="w-full max-w-lg border border-[var(--border)] bg-[var(--bg)] p-4 sm:p-6">
+            <div className="mb-4 flex items-center justify-between sm:mb-5">
               <div>
                 <p className="text-xs uppercase tracking-wider text-[var(--muted)]">{selected.tag}</p>
-                <h2 className="mt-1 text-lg font-medium text-[var(--fg)]">{selected.title}</h2>
+                <h2 className="mt-1 text-base font-medium text-[var(--fg)] sm:text-lg">{selected.title}</h2>
               </div>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="flex h-8 w-8 items-center justify-center border border-[var(--border)] text-[var(--fg)] hover:border-[var(--fg)]"
+                className="flex h-8 w-8 shrink-0 items-center justify-center border border-[var(--border)] text-[var(--fg)] hover:border-[var(--fg)]"
                 aria-label="Close"
               >
                 ✕
               </button>
             </div>
-            <p className="mb-6 text-sm text-[var(--muted)]">{selected.desc}</p>
-            <div className="flex justify-between gap-4 text-xs text-[var(--muted)]">
-              <p className="max-w-xs">
+            <p className="mb-4 text-sm text-[var(--muted)] sm:mb-6">{selected.desc}</p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <p className="text-xs text-[var(--muted)] sm:max-w-xs">
                 Кому это нужно: компаниям, которые хотят автоматизировать процессы и убрать ручную
                 рутину. Опишите свою задачу — мы подскажем, подходит ли вам такой подход.
               </p>
@@ -165,7 +165,7 @@ export function ProjectsList() {
                   setSelected(null);
                   handleContact();
                 }}
-                className="self-end border border-[var(--fg)] bg-[var(--fg)] px-4 py-2 text-[var(--bg)]"
+                className="w-full border border-[var(--fg)] bg-[var(--fg)] px-4 py-3 text-sm text-[var(--bg)] sm:w-auto sm:py-2"
               >
                 Связаться с нами
               </button>
