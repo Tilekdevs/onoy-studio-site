@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto_Mono } from "next/font/google";
-import { Providers } from "@/lib/providers";
-import { CursorDots } from "@/components/CursorDots";
+import { cookies } from "next/headers";
 import "./globals.css";
 
 const robotoMono = Roboto_Mono({
@@ -18,24 +17,17 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Onoy Applications",
-  description:
-    "CRM, Telegram bots, websites, APIs, server deployment. Full-cycle development.",
+  description: "Full-cycle development studio.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("onoy-locale")?.value || "ru";
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${robotoMono.variable} antialiased`}>
-        <Providers>
-          <div className="relative">
-            <CursorDots />
-            {children}
-          </div>
-          <div className="site-scan-line" aria-hidden />
-        </Providers>
-      </body>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${robotoMono.variable} antialiased`}>{children}</body>
     </html>
   );
 }

@@ -19,18 +19,26 @@ const Context = createContext<ContextValue | null>(null);
 const STORAGE_THEME = "onoy-theme";
 const STORAGE_LOCALE = "onoy-locale";
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
-  const [locale, setLocaleState] = useState<Locale>("en");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
+export function Providers({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark";
     const storedTheme = localStorage.getItem(STORAGE_THEME) as Theme | null;
+    return storedTheme === "dark" || storedTheme === "light" ? storedTheme : "dark";
+  });
+
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") return initialLocale ?? "ru";
     const storedLocale = localStorage.getItem(STORAGE_LOCALE) as Locale | null;
-    if (storedTheme === "dark" || storedTheme === "light") setThemeState(storedTheme);
-    if (storedLocale === "en" || storedLocale === "ru") setLocaleState(storedLocale);
-    setMounted(true);
-  }, []);
+    if (storedLocale === "en" || storedLocale === "ru" || storedLocale === "ky")
+      return storedLocale;
+    return initialLocale ?? "ru";
+  });
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
@@ -41,12 +49,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);
     localStorage.setItem(STORAGE_LOCALE, l);
+    document.documentElement.setAttribute("lang", l);
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
     document.documentElement.setAttribute("data-theme", theme);
-  }, [theme, mounted]);
+  }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("lang", locale);
+  }, [locale]);
 
   const t = translations[locale];
 

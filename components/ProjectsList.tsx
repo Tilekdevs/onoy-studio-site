@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useApp } from "@/lib/providers";
 import { ContactModal } from "@/components/ContactModal";
+import { withLocalePath } from "@/lib/i18n";
 
 const MOCK_PROJECTS = [
   {
@@ -52,7 +53,7 @@ const MOCK_PROJECTS = [
 type Project = (typeof MOCK_PROJECTS)[number];
 
 export function ProjectsList() {
-  const { t } = useApp();
+  const { t, locale } = useApp();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState<Project | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
@@ -100,7 +101,7 @@ export function ProjectsList() {
             {t.projects.title}
           </h2>
           <Link
-            href="/projects"
+            href={withLocalePath(locale, "/projects")}
             className="inline-flex h-9 items-center border border-[var(--border)] px-3 text-xs text-[var(--fg)] transition-colors hover:border-[var(--fg)] hover:bg-[var(--fg)]/5 sm:h-10 sm:px-4 sm:text-sm"
           >
             {t.projects.allProjects}

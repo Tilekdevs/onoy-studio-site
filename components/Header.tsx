@@ -2,13 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useApp } from "@/lib/providers";
 import { ContactModal } from "@/components/ContactModal";
+import type { Locale } from "@/lib/translations";
+import { isLocale, LOCALES, withLocalePath } from "@/lib/i18n";
 
 export function Header() {
   const { t, theme, setTheme, locale, setLocale } = useApp();
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const pathname = usePathname() || "/";
+  const router = useRouter();
 
   const nav = [
     { id: "about", label: t.nav.about },
@@ -17,10 +22,33 @@ export function Header() {
     { id: "pricing", label: t.nav.pricing },
   ];
 
+  const currentSeg = pathname.split("/")[1] ?? "";
+  const basePath = isLocale(currentSeg)
+    ? `/${pathname.split("/").slice(2).join("/")}`.replace(/\/+$/, "") || "/"
+    : pathname;
+
+  const isHome = basePath === "/" || basePath === "";
+  const anchorHref = (id: string) =>
+    isHome ? `#${id}` : `${withLocalePath(locale, "/")}#${id}`;
+
+  const switchTo = (next: Locale) => {
+    setLocale(next);
+    router.push(withLocalePath(next, basePath));
+  };
+
+  const cycleLocale = () => {
+    const idx = LOCALES.indexOf(locale);
+    const next = LOCALES[(idx + 1) % LOCALES.length] ?? "ru";
+    switchTo(next);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/95 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-sm font-medium tracking-wide text-[var(--fg)]">
+        <Link
+          href={withLocalePath(locale, "/")}
+          className="text-sm font-medium tracking-wide text-[var(--fg)]"
+        >
           Onoy
         </Link>
 
@@ -28,7 +56,7 @@ export function Header() {
           {nav.map(({ id, label }) => (
             <Link
               key={id}
-              href={`#${id}`}
+              href={anchorHref(id)}
               className="text-sm text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
             >
               {label}
@@ -48,11 +76,11 @@ export function Header() {
           <div className="relative" aria-label={t.nav.language}>
             <button
               type="button"
-              onClick={() => setLocale(locale === "en" ? "ru" : "en")}
+              onClick={cycleLocale}
               className="flex h-8 min-w-[3rem] items-center justify-center border border-[var(--border)] bg-transparent px-2 text-xs uppercase text-[var(--fg)] transition-colors hover:border-[var(--fg)]"
-              aria-pressed={locale === "ru"}
+              aria-pressed={locale !== "ru"}
             >
-              {locale === "en" ? "EN" : "RU"}
+              {locale.toUpperCase()}
             </button>
           </div>
 
@@ -88,7 +116,7 @@ export function Header() {
             {nav.map(({ id, label }) => (
               <Link
                 key={id}
-                href={`#${id}`}
+                href={anchorHref(id)}
                 onClick={() => setMenuOpen(false)}
                 className="text-sm text-[var(--muted)] hover:text-[var(--fg)]"
               >
